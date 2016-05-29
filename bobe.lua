@@ -31,7 +31,7 @@ function FixedPrefix( prefix )
 	elseif prefix == "bobe" then
 		return "bob"
 	else
-		return prefix
+		return prefix:GetName() -- Only now realised that this exists. :(
 	end
 end
 
