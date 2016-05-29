@@ -31,7 +31,7 @@ function FixedPrefix( prefix )
 	elseif prefix == "bobe" then
 		return "bob"
 	else
-		return prefix:GetName() -- Only now realised that this exists. :(
+		return prefix
 	end
 end
 
@@ -90,6 +90,7 @@ function ENT:OnOtherKilled( victim, dmginfo )
 		return end
 		if math.random( 1, 100 ) < 50 then
 			bobhideradius = 8000
+			BobChat( "Bob", "runs!", true )
 		else
 			BobChat( "Bob", "has a heart attack and dies :(", true )
 			self:BecomeRagdoll( DamageInfo() )
