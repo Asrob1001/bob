@@ -1,5 +1,1 @@
-# bob
-This is Bob. Bob is your friend.
-
-bobe.lua - Bob NPC
-bob.lua - Bob SWEP
+# <b>THIS IS OUTDATED, GET THE LATEST BOB FROM <a href="http://bubbie.ga/bob/">HERE</a></b>
