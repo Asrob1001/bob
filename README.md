@@ -6,7 +6,7 @@ If you're going to report an issue, please include any errors if there are any.
 On certain points on gm_flatgrass, Bob's AI may stop working. Unknown if this happens on other maps.
 Only report this if this occurs <b>everywhere on the map.</b>
 # For Developers:
-<u>Hooks</u><br>
+<b><u>Hooks:</u></b><br>
 These hooks are currently not used in any of the public releases yet.<br>
 BobChat - Called when Bob says something<br>
 BobRemoved - Called when Bob is removed<br>
