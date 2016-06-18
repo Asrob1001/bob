@@ -27,7 +27,7 @@ BobStop - Called when Bob is stopped<br>
 hook.Add( "BobKilled", "ExampleHook1", function( dmginfo )<br>
 	dmginfo:GetAttacker():ChatPrint( "Woah! How dare you kill Bob!" )<br>
 end )
-<br>
+<br><br>
 hook.Add( "BobInteract", "ExampleHook2", function( ply )<br>
 	ply:SetVelocity( Vector(0, 0, 800) )<br>
 end )<br>
