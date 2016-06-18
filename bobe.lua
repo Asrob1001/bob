@@ -8,6 +8,7 @@ ENT.Spawnable = true
 ENT.AdminOnly = true
 
 function BobChat( pname, msg, action )
+	hook.Call( "BobChat" )
 	net.Start( "bobchat" )
 	net.WriteString( pname )
 	net.WriteString( msg )
@@ -36,11 +37,13 @@ function FixedPrefix( prefix )
 end
 
 function ENT:OnRemove()
+	hook.Call( "BobRemoved" )
 	BobStop()
 end
 
 function ENT:Initialize()
 	bobhideradius = 3000
+	hook.Call( "BobSpawned" )
 	if SERVER then
 		HappyBob( self )
 		util.AddNetworkString( "bobchat" )
@@ -56,6 +59,7 @@ function ENT:Initialize()
 				BobChat( "Bob", "drowns :(", true )
 				self:BecomeRagdoll( DamageInfo() )
 				BobStop()
+				hook.Call( "BobDrowned" )
 			end
 		end )
 	end
@@ -63,11 +67,12 @@ end
 function ENT:OnKilled( dmginfo )
 	if SERVER then
 		hook.Call( "OnNPCKilled", GAMEMODE, self, dmginfo:GetAttacker(), dmginfo:GetInflictor() )
-		BobChat( "Bob", "OH MY GOD YOU JUST SHOT ME", false )
+		BobChat( "Bob", "OH MY GOD YOU JUST KILLED ME", false )
 		self:BecomeRagdoll( dmginfo )
 		BobChat( "Bob", "dies :(", true )
 		BobStop()
 	end
+	hook.Call( "BobKilled", GAMEMODE, dmginfo )
 end
 function ENT:OnOtherKilled( victim, dmginfo )
 	if SERVER then
@@ -78,8 +83,10 @@ function ENT:OnOtherKilled( victim, dmginfo )
 		if victim:GetClass() == "npc_crow" or victim:GetClass() == "npc_seagull" or victim:GetClass() == "npc_pigeon" then
 			BobChat( "Bob", "Please don't harm our wildlife! D:" )
 			dmginfo:GetAttacker():SetNWInt( "BobsBirdiesKilled", dmginfo:GetAttacker():GetNWInt( "BobsBirdiesKilled", 0 ) + 1 )
+			hook.Call( "BobBirdieKilled", GAMEMODE, dmginfo:GetAttacker() )
 			if dmginfo:GetAttacker():GetNWInt( "BobsBirdiesKilled", 0 ) > 5 then
 				AngryBob( self, dmginfo:GetAttacker() )
+				hook.Call( "BobAngered", GAMEMODE, dmginfo:GetAttacker() )
 			end
 		return end
 		BobChat( "Bob", "OH MY GOD YOU JUST SHOT " .. string.upper( FixedPrefix( victim:GetClass() ) ) , false )
@@ -87,14 +94,17 @@ function ENT:OnOtherKilled( victim, dmginfo )
 			BobChat( "Bob", "has a heart attack and dies :(", true )
 			self:BecomeRagdoll( DamageInfo() )
 			BobStop()
+			hook.Call( "BobDeath" )
 		return end
 		if math.random( 1, 100 ) < 50 then
 			bobhideradius = 8000
 			BobChat( "Bob", "runs!", true )
+			hook.Call( "BobScared", GAMEMODE, dmginfo:GetAttacker() )
 		else
 			BobChat( "Bob", "has a heart attack and dies :(", true )
 			self:BecomeRagdoll( DamageInfo() )
 			BobStop()
+			hook.Call( "BobDeath" )
 		end
 	end
 end
@@ -126,10 +136,12 @@ function ENT:Use( activator, caller, use, value )
 		self:SetUseType( SIMPLE_USE )
 		local bobchat = { "hello " .. string.lower(caller:Nick()) .. "! :D", "this is fun", "how are you today? :D", "im just feeling amazing, " .. string.lower(caller:Nick()) .. "! :D", "what are you up to today? :D", "hi, my name is Bob! :D", "I feel like a rainbow!", "I feel like dancing! :D", "hello, friend! :D" }
 		BobChat( "Bob", table.Random( bobchat ), false )
+		hook.Call( "BobInteract", GAMEMODE, caller )
 	end
 end
 
 function ENT:OnStuck()
+	hook.Call( "BobStuck" )
 	print( "Bob is stuck, so he has to die. :(" )
 	BobChat( "Bob", "dies from claustrophobia :(", true ) -- Defined as fear of being stuck or having no escape, so why not? http://puu.sh/p9hqe/c8d8dbb8a8.png
 	self:BecomeRagdoll( DamageInfo() )
@@ -148,6 +160,7 @@ function DarkBob( self ) -- honestly need to get other shit done like Bob breaki
 end
 
 function BobStop()
+	hook.Call( "BobStop" )
 	timer.Destroy( "MakeSureBobIsNotDisabled:D" )
 	timer.Destroy( "MakeSureBobIsNotDrowning:D" )
 	timer.Destroy( "Bob:D" )
