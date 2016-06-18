@@ -13,10 +13,10 @@ BobRemoved - Called when Bob is removed<br>
 BobSpawned - Called when Bob is spawned<br>
 BobDrowned - Called when Bob drowns<br>
 BobKilled - Called when Bob is killed - dmginfo<br>
-BobBirdieKilled - Called when a bird is killed - killer<br>
-BobAngered - Called when Bob is angered - provoker<br>
+BobBirdieKilled - Called when a bird is killed - Entity killer<br>
+BobAngered - Called when Bob is angered - Entity provoker<br>
 BobDeath - Called when Bob dies<br>
-BobScared - Called when Bob is scared - scarer<br>
-BobInteract - Called when a player interacts with Bob - player<br>
+BobScared - Called when Bob is scared - Entity scarer<br>
+BobInteract - Called when a player interacts with Bob - Entity player<br>
 BobStuck - Called when Bob is stuck<br>
 BobStop - Called when Bob is stopped<br>
