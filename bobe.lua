@@ -4,7 +4,6 @@ ENT.Author = "Bubbie"
 ENT.Category = "Bubbie's Bob"
 ENT.Base = "base_nextbot"
 ENT.Spawnable = true
-ENT.Spawnable = true
 ENT.AdminOnly = true
 
 function BobChat( pname, msg, action )
@@ -43,7 +42,7 @@ end
 
 function ENT:Initialize()
 	bobhideradius = 3000
-	hook.Call( "BobSpawned", GAMEMODE, self.Owner() )
+	hook.Call( "BobSpawned", GAMEMODE, self.Owner )
 	if SERVER then
 		HappyBob( self )
 		util.AddNetworkString( "bobchat" )
