@@ -140,10 +140,8 @@ function ENT:Use( activator, caller, use, value )
 end
 
 function ENT:OnStuck()
-	hook.Call( "BobStuck", GAMEMODE )
-	print( "Bob is stuck, so he has to die. :(" )
-	BobChat( "Bob", "dies from claustrophobia :(", true ) -- Defined as fear of being stuck or having no escape, so why not? http://puu.sh/p9hqe/c8d8dbb8a8.png
-	self:BecomeRagdoll( DamageInfo() )
+	self:MoveToPos( self:FindSpot( "random", { type = 'hiding', radius = bobhideradius } ) )
+	self:SetPos( self:GetPos() + Vector( 0, 0, 30 ) ) -- now he can slowly climb stairs
 end
 
 function HappyBob( self )
