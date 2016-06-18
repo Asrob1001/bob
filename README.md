@@ -22,9 +22,12 @@ BobScared - Called when Bob is scared - Entity scarer<br>
 BobInteract - Called when a player interacts with Bob - Entity player<br>
 BobStuck - Called when Bob is stuck<br>
 BobStop - Called when Bob is stopped<br>
-######<b>Hook Example:</b><br>
+######<b>Hook Examples:</b><br>
 <sub>
-hook.Add( "BobKilled", "ExampleHook", function( dmginfo )<br>
+hook.Add( "BobKilled", "ExampleHook1", function( dmginfo )<br>
 	dmginfo:GetAttacker():ChatPrint( "Woah! How dare you kill Bob!" )<br>
+end )<br>
+hook.Add( "BobInteract", "ExampleHook2", function( ply )<br>
+	ply:SetVelocity( Vector(0, 0, 800) )<br>
 end )<br>
 </sub>
