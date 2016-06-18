@@ -10,7 +10,7 @@ Only report this if this occurs <b>everywhere on the map.</b> Error usually give
 ######<b><u>Hooks:</u></b><br>
 BobChat - Called when Bob says something<br>
 BobRemoved - Called when Bob is removed<br>
-BobSpawned - Called when Bob is spawned<br>
+BobSpawned - Called when Bob is spawned - Entity spawner<br>
 BobDrowned - Called when Bob drowns<br>
 BobKilled - Called when Bob is killed - dmginfo<br>
 BobBirdieKilled - Called when a bird is killed - Entity killer<br>
