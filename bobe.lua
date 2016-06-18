@@ -166,7 +166,3 @@ function BobStop()
 	timer.Destroy( "Bob:D" )
 	timer.Destroy( "MakeSureBobIsNotDrowning2:D" )
 end
-
-hook.Add( "BobKilled", "ExampleHook", function( dmginfo )
-	dmginfo:GetAttacker():ChatPrint( "Woah! How dare you kill Bob!" )
-end )
