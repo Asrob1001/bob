@@ -8,7 +8,7 @@ ENT.Spawnable = true
 ENT.AdminOnly = true
 
 function BobChat( pname, msg, action )
-	hook.Call( "BobChat" )
+	hook.Call( "BobChat", GAMEMODE, msg )
 	net.Start( "bobchat" )
 	net.WriteString( pname )
 	net.WriteString( msg )
@@ -37,13 +37,13 @@ function FixedPrefix( prefix )
 end
 
 function ENT:OnRemove()
-	hook.Call( "BobRemoved" )
+	hook.Call( "BobRemoved", GAMEMODE )
 	BobStop()
 end
 
 function ENT:Initialize()
 	bobhideradius = 3000
-	hook.Call( "BobSpawned" )
+	hook.Call( "BobSpawned", GAMEMODE, self.Owner() )
 	if SERVER then
 		HappyBob( self )
 		util.AddNetworkString( "bobchat" )
@@ -59,7 +59,7 @@ function ENT:Initialize()
 				BobChat( "Bob", "drowns :(", true )
 				self:BecomeRagdoll( DamageInfo() )
 				BobStop()
-				hook.Call( "BobDrowned" )
+				hook.Call( "BobDrowned", GAMEMODE )
 			end
 		end )
 	end
@@ -94,7 +94,7 @@ function ENT:OnOtherKilled( victim, dmginfo )
 			BobChat( "Bob", "has a heart attack and dies :(", true )
 			self:BecomeRagdoll( DamageInfo() )
 			BobStop()
-			hook.Call( "BobDeath" )
+			hook.Call( "BobDeath", GAMEMODE )
 		return end
 		if math.random( 1, 100 ) < 50 then
 			bobhideradius = 8000
@@ -104,7 +104,7 @@ function ENT:OnOtherKilled( victim, dmginfo )
 			BobChat( "Bob", "has a heart attack and dies :(", true )
 			self:BecomeRagdoll( DamageInfo() )
 			BobStop()
-			hook.Call( "BobDeath" )
+			hook.Call( "BobDeath", GAMEMODE )
 		end
 	end
 end
@@ -141,7 +141,7 @@ function ENT:Use( activator, caller, use, value )
 end
 
 function ENT:OnStuck()
-	hook.Call( "BobStuck" )
+	hook.Call( "BobStuck", GAMEMODE )
 	print( "Bob is stuck, so he has to die. :(" )
 	BobChat( "Bob", "dies from claustrophobia :(", true ) -- Defined as fear of being stuck or having no escape, so why not? http://puu.sh/p9hqe/c8d8dbb8a8.png
 	self:BecomeRagdoll( DamageInfo() )
@@ -160,9 +160,13 @@ function DarkBob( self ) -- honestly need to get other shit done like Bob breaki
 end
 
 function BobStop()
-	hook.Call( "BobStop" )
+	hook.Call( "BobStop", GAMEMODE )
 	timer.Destroy( "MakeSureBobIsNotDisabled:D" )
 	timer.Destroy( "MakeSureBobIsNotDrowning:D" )
 	timer.Destroy( "Bob:D" )
 	timer.Destroy( "MakeSureBobIsNotDrowning2:D" )
 end
+
+hook.Add( "BobKilled", "ExampleHook", function( dmginfo )
+	dmginfo:GetAttacker():ChatPrint( "Woah! How dare you kill Bob!" )
+end )
