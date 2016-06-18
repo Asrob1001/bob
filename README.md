@@ -7,7 +7,7 @@ On certain points on gm_flatgrass, Bob's AI may stop working. Unknown if this ha
 Only report this if this occurs <b>everywhere on the map.</b>
 # For Developers:
 <b><u>Hooks:</u></b><br>
-These hooks are currently not used in any of the public releases yet.<br>
+<b>These hooks are a part of an update. Current versions using these: (None)</b><br>
 BobChat - Called when Bob says something<br>
 BobRemoved - Called when Bob is removed<br>
 BobSpawned - Called when Bob is spawned<br>
@@ -17,6 +17,6 @@ BobBirdieKilled - Called when a bird is killed - killer<br>
 BobAngered - Called when Bob is angered - provoker<br>
 BobDeath - Called when Bob dies<br>
 BobScared - Called when Bob is scared - scarer<br>
-BobInteract - Called when a player interacts with Bob<br>
+BobInteract - Called when a player interacts with Bob - player<br>
 BobStuck - Called when Bob is stuck<br>
 BobStop - Called when Bob is stopped<br>
