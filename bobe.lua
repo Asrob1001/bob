@@ -96,7 +96,7 @@ function ENT:OnOtherKilled( victim, dmginfo )
 			hook.Call( "BobDeath", GAMEMODE )
 		return end
 		if math.random( 1, 100 ) < 50 then
-			if math.random( 20, 40 ) == 37 then
+			if math.random( 1, 100 ) == 37 then
 				BobChat( "Bob", "pisses himself!", true )
 				timer.Simple( 3, function()
 					self:BecomeRagdoll( DamageInfo() )
@@ -119,8 +119,17 @@ end
 
 function ENT:RunBehaviour()
 	self:StartActivity( ACT_RUN )
-	self:MoveToPos( self:FindSpot( "random", { type = 'hiding', radius = bobhideradius } ) )
-	timer.Create( "MakeSureBobIsNotDisabled:D", 0.2, 0, self:RunBehaviour())
+	if self:FindSpot( "random", { type = 'hiding', radius = bobhideradius } ) == nil then
+		self:MoveToPos( self:GetPos() + Vector( 800, 0, 0 ) )
+	else
+		self:MoveToPos( self:FindSpot( "random", { type = 'hiding', radius = bobhideradius } ) )
+	end
+	self:RunBehaviour()
+end
+
+function ENT:Think()
+	self:NextThink( CurTime() )
+	hook.Call( "RunBehaviour", GAMEMODE )
 end
 
 function BobSetNextUse( self, seconds )
@@ -149,7 +158,7 @@ function ENT:Use( activator, caller, use, value )
 end
 
 function ENT:OnStuck()
-	self:MoveToPos( self:FindSpot( "random", { type = 'hiding', radius = bobhideradius } ) )
+	hook.Call( "RunBehaviour", GAMEMODE )
 	self:SetPos( self:GetPos() + Vector( 0, 0, 30 ) ) -- now he can slowly climb stairs
 end
 
