@@ -96,7 +96,7 @@ function ENT:OnOtherKilled( victim, dmginfo )
 			hook.Call( "BobDeath", GAMEMODE )
 		return end
 		if math.random( 1, 100 ) < 50 then
-			if math.random( 1, 100 ) == 37 then
+			if math.random( 20, 40 ) == 37 then
 				BobChat( "Bob", "pisses himself!", true )
 				timer.Simple( 3, function()
 					self:BecomeRagdoll( DamageInfo() )
