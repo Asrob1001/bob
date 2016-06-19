@@ -76,7 +76,7 @@ end
 function ENT:OnOtherKilled( victim, dmginfo )
 	if SERVER then
 		if victim:GetClass() == "player" then return end
-		if string.find( victim:GetClass(), "zombi", 1 ) or string.find( victim:GetClass(), "antlion", 1 ) or string.find( victim:GetClass(), "headcrab", 1 ) or string.find( victim:GetClass(), "combine", 1 ) or string.find( victim:GetClass(), "barnacle", 1 )  then
+		if string.find( victim:GetClass(), "zombi", 1 ) or string.find( victim:GetClass(), "antlion", 1 ) or string.find( victim:GetClass(), "headcrab", 1 ) or string.find( victim:GetClass(), "combine", 1 ) or string.find( victim:GetClass(), "barnacle", 1 ) or string.find( victim:GetClass(), "metro", 1 ) then
 			BobChat( "Bob", "Nice shot! :D" )
 		return end
 		if victim:GetClass() == "npc_crow" or victim:GetClass() == "npc_seagull" or victim:GetClass() == "npc_pigeon" then
@@ -88,7 +88,7 @@ function ENT:OnOtherKilled( victim, dmginfo )
 				hook.Call( "BobAngered", GAMEMODE, dmginfo:GetAttacker() )
 			end
 		return end
-		BobChat( "Bob", "OH MY GOD YOU JUST SHOT " .. string.upper( FixedPrefix( victim:GetClass() ) ) , false )
+		BobChat( "Bob", "OH MY GOD YOU JUST KILLED " .. string.upper( FixedPrefix( victim:GetClass() ) ) , false )
 		if victim:GetClass() == "bobe" then
 			BobChat( "Bob", "has a heart attack and dies :(", true )
 			self:BecomeRagdoll( DamageInfo() )
