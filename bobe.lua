@@ -96,6 +96,15 @@ function ENT:OnOtherKilled( victim, dmginfo )
 			hook.Call( "BobDeath", GAMEMODE )
 		return end
 		if math.random( 1, 100 ) < 50 then
+			if math.random( 1, 100 ) == 37 then
+				BobChat( "Bob", "pisses himself!", true )
+				timer.Simple( 3, function()
+					self:BecomeRagdoll( DamageInfo() )
+					BobStop()
+					hook.Call( "BobScared", GAMEMODE, dmginfo:GetAttacker() )
+					hook.Call( "BobDeath", GAMEMODE )
+				end )
+			return end
 			bobhideradius = 8000
 			BobChat( "Bob", "runs!", true )
 			hook.Call( "BobScared", GAMEMODE, dmginfo:GetAttacker() )
