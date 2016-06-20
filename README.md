@@ -7,6 +7,7 @@ On certain points on gm_flatgrass, Bob's AI may stop working. Unknown if this ha
 Only report this if this occurs <b>everywhere on the map.</b> Error usually given:<br>
 <sub>NextBot [173][bobe] Error: gamemodes/base/entities/entities/base_nextbot/sv_nextbot.lua:289: bad argument #2 to 'Compute' (Vector expected, got nil)</sub><br>
 <b>* This has been fixed in the newest update. *</b>
+<b>If Bob still doesn't move, use nav_generate</b>
 # Things that need to be done:<br>
 Only react to deaths of other NPCs if Bob was close to the NPC. That'll be easy.<br>
 # For Developers:
